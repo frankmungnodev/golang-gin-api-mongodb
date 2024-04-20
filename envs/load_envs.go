@@ -8,6 +8,8 @@ import (
 type Envs struct{}
 
 var (
+	ENV string
+
 	MONGO_DATABASE_URL string
 
 	TURSO_DATABASE_URL string
@@ -18,6 +20,8 @@ var (
 )
 
 func LoadEnvs() {
+	ENV = os.Getenv("ENV")
+
 	MONGO_DATABASE_URL = os.Getenv("MONGO_DATABASE_URL")
 
 	TURSO_DATABASE_URL = os.Getenv("TURSO_DATABASE_URL")

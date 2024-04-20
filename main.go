@@ -11,10 +11,15 @@ import (
 )
 
 func main() {
-	server := gin.Default()
 
 	envs.LoadEnvs()
 	mongodb.InitMongoDB()
+
+	if envs.ENV == "production" {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
+	server := gin.Default()
 
 	// Routers
 	authrouter := &routes.AuthRouter{}
@@ -23,6 +28,6 @@ func main() {
 	apiV1Router := server.Group("/api/v1")
 	authrouter.DefineV1Routes(apiV1Router)
 
-	server.Run("localhost:8080")
+	server.Run(":8080")
 	log.Fatal(autotls.Run(server, "localhost"))
 }
